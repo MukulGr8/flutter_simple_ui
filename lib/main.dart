@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
         children: <Widget>[
           //For image
           Opacity(
-              opacity: 0.5,
+              opacity: 0.8,
               child: new Image.asset(
                 "images/crops.jpg",
                 height: 1200,
@@ -40,8 +40,8 @@ class Home extends StatelessWidget {
 
           //For Userfield and Passwordfield and login button main container
           Container(
-            alignment: FractionalOffset.center,
-            margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+            alignment: FractionalOffset.topCenter,
+            margin: EdgeInsets.fromLTRB(0, 100, 0, 0),
             decoration: BoxDecoration(
               //for applying shadows to the box
                 boxShadow: [
@@ -56,7 +56,7 @@ class Home extends StatelessWidget {
                   )
                 ],
                 color: Colors.white,
-                borderRadius: new BorderRadius.circular(15.0)),
+                borderRadius: new BorderRadius.circular(15.0),),
             height: 330,
             width: 350,
             child: Padding(
@@ -145,43 +145,51 @@ class Home extends StatelessWidget {
 
 
           //For Sign up button
-          Container(
-              alignment: FractionalOffset.centerLeft,
-              margin: EdgeInsets.fromLTRB(0, 250, 0, 0),
-              child: new FlatButton(onPressed: (){}, child:
-              new Text("Don't have an account? ",style: new TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),textColor: Colors.white,)
-          ),
 
-
-          //For Sign up button
           Container(
-              alignment: FractionalOffset.centerRight,
-                    margin: EdgeInsets.fromLTRB(0, 250, 0, 0),
-              child: new FlatButton(onPressed: (){}, child:
-              new Text("Sign Up",style: new TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),textColor: Colors.white,)
-          ),
-
-          //For sign up button
-          Container(
-            alignment: FractionalOffset.center,
-            margin: EdgeInsets.fromLTRB(0, DH-165, 0, 0),
-            child: new ButtonTheme(
-              minWidth: 360.0,
-              height: 50.0,
-              child: new RaisedButton(
-                onPressed: (){},
-                padding: EdgeInsets.all(17.0),
-                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),
-                    side: new BorderSide(
-                  color: Colors.blue,
-                  width: 2.0
-                )),
-                textColor: Colors.blueAccent,
-                color: Colors.white,child: new Text("SKIP SIGN UP FOR NOW",style: new TextStyle(
-                fontSize: 22,fontWeight: FontWeight.bold
-              ),),),
+            padding: EdgeInsets.fromLTRB(0,100,0,0),
+            child:new Row(
+              children: <Widget>[
+              Container(
+                alignment: FractionalOffset.centerLeft,
+                margin: EdgeInsets.fromLTRB(0, 250, 0, 0),
+                child: new FlatButton(onPressed: (){}, child:
+                new Text("Don't have an account? ",style: new TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),textColor: Colors.white,)
             ),
-          )
+
+            //For Sign up button
+            Container(
+                alignment: FractionalOffset.centerRight,
+                margin: EdgeInsets.fromLTRB(10, 250, 0, 0),
+                child: new FlatButton(onPressed: (){}, child:
+                new Text("Sign Up",style: new TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),textColor: Colors.white,)
+            ),
+              ],
+            ),
+          ),
+
+
+//          //For sign up button
+//          Container(
+//            alignment: FractionalOffset.center,
+//            margin: EdgeInsets.fromLTRB(0, DH-165, 0, 0),
+//            child: new ButtonTheme(
+//              minWidth: 360.0,
+//              height: 50.0,
+//              child: new RaisedButton(
+//                onPressed: (){},
+//                padding: EdgeInsets.all(17.0),
+//                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0),
+//                    side: new BorderSide(
+//                  color: Colors.blue,
+//                  width: 2.0
+//                )),
+//                textColor: Colors.blueAccent,
+//                color: Colors.white,child: new Text("SKIP SIGN UP FOR NOW",style: new TextStyle(
+//                fontSize: 22,fontWeight: FontWeight.bold
+//              ),),),
+//            ),
+//          )
 
 
         ],
