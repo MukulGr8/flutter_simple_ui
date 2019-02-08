@@ -8,7 +8,8 @@ class TryAlertDBox extends StatelessWidget {
     Future.delayed(Duration.zero, () => _onTapImage(context));
     return Scaffold(
       appBar: new AppBar(
-        title: new Text("Alert DBOx"),
+        title: new Text("Sign In"),
+        centerTitle: true,
       ),
 
       body: new Stack(
