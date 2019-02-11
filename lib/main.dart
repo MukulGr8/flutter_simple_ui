@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_new/Login/Login.dart';
 import 'package:flutter_new/TryAlertDBox.dart';
@@ -19,40 +21,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  File image;
-  int mS=0;
-  int iSize=0;
-
-  String defPath = "images/crops.jpg";
+  File image=new File("images/crops.jpg"); //File variable cant be null so . . we intialise it a default image.
+  int mS=0; //maximum Size of image in bytes
+  double oS=0; //Orignal Size of image after converting into mb
+  int iSize=0; //Actual Size to show in the app for checking conditions (InAppSize)
+  double contH=80.0;
+  double contW=80.0;
+  Curve _curve = Curves.decelerate;
 
 //  To pick Image
   _getImage() async {
     print('Picker is called');
     File img = await ImagePicker.pickImage(source: ImageSource.camera);
     mS= await img.length();
-    double oS = mS/1000000;
-//    mS.then((values) {
-//      // Code that doesn't use the `_` parameter...
-//      print("Size of the image > "+(values/1000000).toString());
-//      var hmm = values/1000000;
-//      setState(() {
-//        print("orignal size is "+hmm.toString());
-//        if(hmm <= 1){
-//          widget.ok = false;
-//        }
-//      });
-//    });
-//    File img = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    if (img != null) {
-      image = img;
-      iSize = oS.toInt();
-    }
+    oS = mS/1000000;
     setState(() {
-      image = img;
-      iSize = oS.toInt();
+        image = img; //This is used to set the state for the image.
+        iSize = oS.toInt(); //This is used to set the state for the image size.
     });
+    print("Size of image is "+oS.toString()); //Display the size of image in floating points
+    contH = 80.0;
+    contW = 80.0;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +55,11 @@ class _HomeState extends State<Home> {
 
       //This is the floating action button
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        height: 80,
-        width: 80,
+      floatingActionButton: AnimatedContainer(
+        duration: Duration(seconds: 1),
+        curve: _curve,
+        height: contH,
+        width: contW,
         child: FloatingActionButton(
           backgroundColor: Colors.cyan,
           child: const Icon(
@@ -75,7 +68,22 @@ class _HomeState extends State<Home> {
             color: Colors.white,
           ),
           onPressed: () {
-            _getImage();
+            setState(() {
+              Duration(seconds: 1);
+              _curve = Curves.linear;
+              contH = 50;
+              contW = 50;
+//
+            });
+            //This is a timer to show the image after 2 seconds or after the animation
+            new Timer(const Duration(seconds: 1),(){
+              _getImage();
+              setState(() {
+                contH = 80.0;
+                contW = 80.0;
+              });
+            });
+
           },
         ),
       ),
@@ -83,12 +91,12 @@ class _HomeState extends State<Home> {
       //This is used for the containing the image
       body: Container(
           alignment:FractionalOffset.center,
-          child: image == null && iSize <= 1
+          child:iSize < 1 || image == null
               ? new Text(
-            "No Image Selected",
+            "Selected Image Must Be In HD Size",
             textAlign: TextAlign.center,
             style: new TextStyle(
-                fontSize: 50,
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
                 color: Colors.blue),
           )
@@ -97,7 +105,7 @@ class _HomeState extends State<Home> {
             fit: BoxFit.cover,
           )),
 
-      //This is the bottom navigation bar which is having a notch shape to display the fab
+      //This is the bottom navigation bar which is having a notch shape to display the fab in that notch
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
 //        notchMargin: 20.0, //This will increase the margin between notch and the fab
